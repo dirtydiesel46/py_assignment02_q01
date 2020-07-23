@@ -47,7 +47,10 @@ class MyForm(QtGui.QDialog):
             until_sunset = self.returnQTimeObject(int_until_sunset)
             self.ui.lcdUntilSunset.display(until_sunset.toString('hh:mm:ss'))
         else:
-            self.ui.lcdUntilSunset.display(QtCore.QTime(0, 0, 0).toString('hh:mm:ss'))
+            total = 86400 - (current_time.hour() * 3600 + current_time.minute() * 60 + current_time.second()) + self.int_sunset
+            time = self.returnQTimeObject(total)
+            #self.ui.lcdUntilSunset.display(QtCore.QTime(0, 0, 0).toString('hh:mm:ss'))
+            self.ui.lcdUntilSunset.display(time.toString('hh:mm:ss'))
 
     def returnQTimeObject(self, value):
         return QtCore.QTime(value // 3600, (value % 3600) // 60, (value %3600) % 60)
